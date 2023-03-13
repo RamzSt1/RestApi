@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Служба доставки</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <script defer src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<div class="d-flex h-100">
+    {% if request.user.is_authenticated %}
+    <div class="d-flex flex-column col-3 bg-light">
+        <div class="flex-grow-1 p-3">
+            <div class="d-flex flex-row justify-content-center">
+                <a href="/" class="mb-md-0 link-dark text-decoration-none">
+                    <p class="m-0 fs-3">Главное меню</p>
+                </a>
+            </div>
+            <hr>
+            <ul class="list-group list-group-flush">
+                <a href="{% url 'add_order' %}"
+                   class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'add_order' %} active {% endif %}"
+                   >Добавить заказ</a>
+                <a href="{% url 'orders' %}"
+                   class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'orders' %} active {% endif %}"
+                   >Список заказов</a>
+
+            </ul>
+        </div>
+        <div class="bg-secondary">
+           <div class="dropdown fs-4 m-0 ms-3 my-1">
+                <a href="#" class="link-dark text-decoration-none dropdown-toggle text-white"
+                   id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+
+                    Профиль:<strong>{{user.username}}</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                    <li><a class="dropdown-item" href="#">Выйти</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div {% if request.user.is_authenticated %} class="col-9" {% else %} class="col-12" {% endif %}>
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+</body>
+</html>

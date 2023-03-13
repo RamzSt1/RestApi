@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Galactic Express</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_ge.css' %}">
+    <script defer src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</head>
+<body>
+    <div class="navmenu">
+        <div class="logo"><a href="/"></a></div>
+        <ul>
+            <li><a class="menu-link" href="/">Главная</a></li>
+            <li><a class="menu-link" href="/customer" style="color: crimson">Сайт доставки</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a class="menu-link" href="{% url 'my_orders' %}" style="color: greenyellow">Мои заказы</a></li>
+            {% endif %}
+
+        </ul>
+        {% if request.user.is_authenticated %}
+        <div class="auth"><a href="#">{{user.username}}</a> | <a href="{% url 'logout' %}">Выйти</a></div>
+        {% else %}
+        <div class="auth"><a href="{% url 'login' %}">Войти</a> | <a href="{% url 'register' %}">Регистрация</a></div>
+        {% endif %}
+    </div>
+    <div class="header">
+        <div class="header-image">
+            <div class="fw-bold ms-5" style="
+                padding-top: 200px;
+                font-size: 50pt;
+                color: greenyellow"
+                >Galactic Express</div>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

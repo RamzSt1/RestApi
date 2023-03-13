@@ -1,0 +1,40 @@
+{% extends './template.html' %}
+
+{% block content %}
+<div class="d-flex flex-column m-2 p-2">
+    <p class="fs-3 fw-bold">Cписок заказов</p>
+
+    <a class="btn btn-warning mb-3" href="{% url 'new_order' %}" role="button">Добавить заказ</a>
+
+    <table class="table d-inline-block table-striped table-bordered table-sm bg-light"
+           style="max-width: 50vh; vertical-align: top; white-space:nowrap;">
+        <thead>
+        <tr class="table-info">
+
+            <th scope="col">Дата</th>
+            <th scope="col">Заказчик</th>
+            <th scope="col">Адрес А</th>
+            <th scope="col">Адрес Б</th>
+            <th scope="col">Габариты</th>
+            <th scope="col">Вес</th>
+            <th scope="col">Статус</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% load static %}
+        {% for row in orders %}
+        <tr>
+            <td>{{row.date}}</td>
+            <td>{{request.user}}</td>
+            <td>{{row.address_a}}</td>
+            <td>{{row.address_b}}</td>
+            <td>{{row.gabarits}}</td>
+            <td>{{row.weigth}}</td>
+            <td>{{row.status}}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
